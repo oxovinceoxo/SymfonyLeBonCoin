@@ -1,0 +1,32 @@
+<div id="menu" >
+    <nav class="mb-5 navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <a class="navbar-brand" href="{{ path('article_visiteur') }}">Les petite Annonces</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    {% if app.user%}
+                    <a class="nav-link btn btn-primary" href="{{ path('article_visiteur') }}">recherche</a>
+                    {% endif %}
+                </li>
+            </ul>
+
+            <div class=" my-2 my-lg-0">
+                <ul class="navbar-nav mr-auto">
+
+                    {% if app.user %}
+                    <a class="nav-link btn btn-primary" href="{{ path('articles_index') }}">Mon compte</a>
+                    <a class="nav-link text-success">{{ app.user.email}}</a>
+                    <a class="nav-link btn btn-danger" href="{{ path('app_logout') }}">deconnexion</a>
+                    {% else %}
+                    <a class="nav-link btn btn-primary" href="{{ path('register') }}">inscription</a>
+                    <a class="nav-link btn btn-primary" href="{{ path('app_login') }}">Connexion</a>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>

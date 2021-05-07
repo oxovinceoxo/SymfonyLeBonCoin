@@ -1,0 +1,5 @@
+cocur_slugify:
+  lowercase: false # or true
+  separator: '-' # any string
+  # regexp: <string>
+  rulesets: ['french']

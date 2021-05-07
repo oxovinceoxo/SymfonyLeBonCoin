@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+    <h1 class=" bg-primary text-white">{{ article.nomArticle }}</h1>
+
+    <table>
+        <tbody id="tableau">
+
+        <tr>
+            <th></th>
+            <td><img width="100%" src="/photos/{{ article.photoArticle }}"></td>
+        </tr>
+        <tr>
+            <th>DescriptionArticle</th>
+            <td>{{ article.descriptionArticle }}</td>
+        </tr>
+        <tr>
+            <th>PrixArticle</th>
+            <td>{{ article.prixArticle }}</td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('article_visiteur') }}">retour</a>
+
+{% endblock %}
