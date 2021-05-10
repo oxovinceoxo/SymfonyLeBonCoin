@@ -30,17 +30,14 @@ class RechercheType extends AbstractType
                 'required' => false
 
             ])
-            ->add('prixArticle', NumberType::class,[
-                'label'=>'prix max',
-                'required'=> false,
 
-            ])
 
             ->add('recherche',SubmitType::class,[
                 'label'=> 'recherche'
-            ])
+            ]);
 
-        ;
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -3,10 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Articles;
+use App\Entity\Categories;
+use App\Entity\Regions;
 use App\Entity\User;
 use App\Form\RechercheType;
 use App\Repository\ArticlesRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,19 +31,58 @@ class ArticleVisiteurController extends AbstractController
         $article = new Articles();
         $user = new User();
         $utilisateur = $user->getEmail();
-
-        $rechercheForm = $this->createForm(RechercheType::class,$article);
-        $rechercheForm->handleRequest($request);
-
-
-        $prix = $article->getPrixArticle();
+        $prixMin = '';
+        $prixMax = '';
         $cat = $article->getCategories();
         $region = $article->getRegion();
+        $recherche = ['test'=>'test du form'];
+
+        $rechercheForm = $this->createFormBuilder($recherche)
+            ->add('categories',EntityType::class,[
+                'class'=> Categories::class,
+                'choice_label'=>'nomCategorie',
+                'required'=> false
+            ])
+
+            ->add('region', EntityType::class,[
+                'class' => Regions::class,
+                'choice_label' => 'nomRegion',
+                'required' => false
+
+            ])
+            ->add('prixMin', NumberType::class,[
+                'label'=>'prix min',
+                'required'=> false,
+
+            ])
+            ->add('prixMax', NumberType::class,[
+                'label'=>'prix max',
+                'required'=> false,
+
+            ])
+
+            ->add('recherche',SubmitType::class,[
+                'label'=> 'recherche'
+            ])
+        ->getForm();
+
+        $rechercheForm->handleRequest($request);
+
+        if($request->isMethod('POST') && $rechercheForm->isValid()){
+            $data = $rechercheForm->getData();
+            //dd($data);
+            $prixMin = $data['prixMin'];
+            $prixMax = $data['prixMax'];
+            $cat = $data['categories'];
+            $region = $data['region'];
+        }
+
+
 
 
         return $this->render('article_visiteur/index.html.twig', [
             'rechercheForm'=> $rechercheForm->createView(),
-            'articles' => $articlesRepository->rechercheParametre($prix,$cat,$region),
+            'articles' => $articlesRepository->rechercheParametre($prixMin,$prixMax,$cat,$region),
 
         ]);
     }

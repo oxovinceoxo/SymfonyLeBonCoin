@@ -17,17 +17,10 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class ArticlesRepository extends ServiceEntityRepository
 {
-    public function rechercheParametre($prix, $cat, $region){
-        $query = $this->createQueryBuilder('a')
-            ->orderBy('a.id', 'ASC');
+    public function rechercheParametre($prixMin,$prixMax, $cat, $region){
+            $query = $this->createQueryBuilder('a')
+                ->orderBy('a.id', 'ASC');
 
-
-        if($prix){
-            $query = $query
-                ->andWhere('a.prixArticle < :prixmax ')
-                ->setParameter('prixmax',$prix);
-
-        }
 
 
         if($cat){
@@ -39,6 +32,26 @@ class ArticlesRepository extends ServiceEntityRepository
             $query = $query
                 ->andWhere('a.region = :regionID')
                 ->setParameter('regionID', $region);
+        }
+        if($prixMin ) {
+            $query = $query
+                ->andWhere('a.prixArticle >= :prixmin')
+                ->setParameter('prixmin', $prixMin);
+
+        }
+        if( $prixMax) {
+            $query = $query
+
+                ->andWhere('a.prixArticle <= :prixmax')
+
+                ->setParameter('prixmax', $prixMax);
+        }
+
+        if($prixMin && $prixMax) {
+            $query = $query
+                ->andWhere('a.prixArticle BETWEEN :prixmin AND :prixmax')
+                ->setParameter('prixmin', $prixMin)
+                ->setParameter('prixmax', $prixMax);
         }
 
         return $query->getQuery()->getResult();
