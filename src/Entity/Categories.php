@@ -80,4 +80,9 @@ class Categories
 
         return $this;
     }
+
+    function  __toString()
+    {
+        return $this->nomCategorie;
+    }
 }

@@ -99,4 +99,9 @@ class Regions
 
         return $this;
     }
+
+    function  __toString()
+    {
+        return $this->nomRegion;
+    }
 }

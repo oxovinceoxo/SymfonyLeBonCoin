@@ -3,6 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Articles;
+use App\Entity\Categories;
+use App\Entity\Regions;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -31,8 +34,20 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         return [
-        yield MenuItem::linktoDashboard('tableau de bord', 'fa fa-home'),
-        yield MenuItem::linkToCrud('Articles', 'fas fa-list', Articles::class)
+
+         MenuItem::section('Articles'),
+         MenuItem::linktoDashboard('tableau de bord', 'fa fa-home'),
+         MenuItem::linkToCrud('Articles', 'fas fa-list', Articles::class),
+         
+
+         MenuItem::section('criteres de recherche'),
+         MenuItem::linkToCrud('Categories', 'fas fa-list', Categories::class),
+         MenuItem::linkToCrud('region', 'fas fa-list', Regions::class),
+
+         MenuItem::section('Utilisateurs'),
+         MenuItem::linkToCrud('utilisteurs', 'fas fa-list', User::class),
+
+
         ];
     }
 }

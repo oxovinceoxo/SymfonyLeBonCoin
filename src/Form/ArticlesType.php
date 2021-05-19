@@ -5,9 +5,11 @@ namespace App\Form;
 use App\Entity\Articles;
 use App\Entity\Categories;
 use App\Entity\Regions;
+use App\Entity\User;
 use App\Entity\Utilisateurs;
 
 
+use phpDocumentor\Reflection\Type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -25,6 +27,7 @@ class ArticlesType extends AbstractType
             ->add('nomArticle',TextType::class)
             ->add('descriptionArticle',TextareaType::class)
             ->add('prixArticle',NumberType::class)
+
             ->add('photoArticle',FileType::class,[
                 'label'=> 'image de l\'annonce',
                 'data_class'=> null,

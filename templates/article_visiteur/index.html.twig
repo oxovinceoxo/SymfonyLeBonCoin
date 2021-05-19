@@ -8,26 +8,29 @@
 
         <div class="text-center" id="test">
             {{ form_start(rechercheForm) }}
+    <!-- region et catégories -->
                 <div class="row">
-                        <div class="class="col-md-6 col-sm-12"">
+                        <div class="col-md-6 col-sm-12">
                             {{ form_row(rechercheForm.region) }}
                         </div>
-                        <div class="class="col-md-6 col-sm-12"">
+                        <div class="col-md-6 col-sm-12">
                             {{ form_row(rechercheForm.categories) }}
                         </div>
                 </div>
+    <!-- prix min prix max -->
+            <h6>PRIX</h6>
                 <div class="row">
                         <div class="col-md-6 col-sm-12">
                         {{ form_row(rechercheForm.prixMin) }}
                         </div>
-                        <div class="class="col-md-6 col-sm-12"">
+                        <div class="col-md-6 col-sm-12">
                         {{ form_row(rechercheForm.prixMax) }}
                         </div>
-
+                </div>
         </div>
-    <div>
-        {{ form_end(rechercheForm) }}
-    </div>
+            <div>
+                {{ form_end(rechercheForm) }}
+            </div>
     </div>
 
 
@@ -48,7 +51,9 @@
                         <h2 class="card-title">{{ article.nomArticle }}</h2>
                         <p class="card-text">{{ article.descriptionArticle }}</p>
                         <h3 class="card-text">{{ article.prixArticle }} €</h3>
-                        <p class="card-text text-primary">{{ article.categories.nomCategorie }} </p>
+                        <p class="card-text text-primary">categorie: {{ article.categories}} </p>
+                        <p class="card-text text-primary">Region: {{ article.region}} </p>
+
                         <a class="btn btn-primary"
                            href="{{ path('articles_show_visteur', {'slug':article.nomArticle|slugify,'id': article.id}) }}">detail</a>
 

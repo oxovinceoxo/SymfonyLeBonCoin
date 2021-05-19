@@ -20,7 +20,8 @@
                             <h2 class="card-title">{{ article.nomArticle }}</h2>
                             <p class="card-text">{{ article.descriptionArticle }}</p>
                             <h3 class="card-text">{{ article.prixArticle }} €</h3>
-                            <p class="card-text text-primary">{{ article.categories.nomCategorie}} </p>
+                            <p class="card-text text-primary">categorie: {{ article.categories.nomCategorie}} </p>
+
                             <a class="btn btn-primary" href="{{ path('articles_show', {'slug':article.nomArticle|slugify,'id': article.id}) }}">detail</a>
                             {% if app.user%}
                             <a class="btn btn-danger" href="{{ path('articles_edit', {'id': article.id}) }}">editer</a>

@@ -26,8 +26,7 @@ class ArticlesController extends AbstractController
     public function index(ArticlesRepository $articlesRepository, Request $request): Response
     {
         $article = new Articles();
-        $user = new User();
-        $utilisateur = $user->getEmail();
+
 
         $rechercheForm = $this->createForm(RechercheType::class, $article);
         $rechercheForm->handleRequest($request);
@@ -59,7 +58,16 @@ class ArticlesController extends AbstractController
      */
     public function new(Request $request): Response
     {
+
         $article = new Articles();
+        $user = new User();
+        $article->setUser($this->getUser());
+
+        /*$userId=$this->getUser();
+        $test = $article->setUser($user);
+        //dd($userId);
+        */
+
         $form = $this->createForm(ArticlesType::class, $article);
         $form->handleRequest($request);
 
